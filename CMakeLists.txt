@@ -87,3 +87,11 @@ catkin_package(
 add_executable(fastlio_mapping src/laserMapping.cpp include/ikd-Tree/ikd_Tree.cpp src/preprocess.cpp)
 target_link_libraries(fastlio_mapping ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES})
 target_include_directories(fastlio_mapping PRIVATE ${PYTHON_INCLUDE_DIRS})
+
+add_executable(pandar_to_velodyne src/pandar_to_velodyne.cpp)
+target_link_libraries(pandar_to_velodyne ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES})
+target_include_directories(pandar_to_velodyne PRIVATE ${PYTHON_INCLUDE_DIRS})
+
+add_executable(rs_to_velodyne src/rs_to_velodyne.cpp)
+target_link_libraries(rs_to_velodyne ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES})
+target_include_directories(rs_to_velodyne PRIVATE ${PYTHON_INCLUDE_DIRS})
