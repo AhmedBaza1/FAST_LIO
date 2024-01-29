@@ -95,3 +95,7 @@ target_include_directories(pandar_to_velodyne PRIVATE ${PYTHON_INCLUDE_DIRS})
 add_executable(rs_to_velodyne src/rs_to_velodyne.cpp)
 target_link_libraries(rs_to_velodyne ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES})
 target_include_directories(rs_to_velodyne PRIVATE ${PYTHON_INCLUDE_DIRS})
+
+add_executable(rs_to_ouster src/rs_to_ouster.cpp)
+target_link_libraries(rs_to_ouster ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${PYTHON_LIBRARIES})
+target_include_directories(rs_to_ouster PRIVATE ${PYTHON_INCLUDE_DIRS})
