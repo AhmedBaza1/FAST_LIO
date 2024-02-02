@@ -10,7 +10,7 @@ preprocess:
     scan_line: 32
     scan_rate: 10
     timestamp_unit: 3            # the unit of time/t field in the PointCloud2 rostopic: 0-second, 1-milisecond, 2-microsecond, 3-nanosecond.
-    blind: 1.0
+    blind: 1.0                  # the blind parameter is the square of the minimum distancs of the sensor
 
 mapping:
     acc_cov: 0.01

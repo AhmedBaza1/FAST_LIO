@@ -33,7 +33,7 @@
 // ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 // POSSIBILITY OF SUCH DAMAGE.
 #include <omp.h>
-#include <mutex>
+#include <mutex> 
 #include <math.h>
 #include <thread>
 #include <fstream>
@@ -78,8 +78,9 @@ float DET_RANGE = 300.0f;
 const float MOV_THRESHOLD = 1.5f;
 double time_diff_lidar_to_imu = 0.0;
 
-mutex mtx_buffer;
-condition_variable sig_buffer;
+mutex mtx_buffer; //* mutex: used to protect shared data from being simultaneously accessed by multiple threads.
+condition_variable sig_buffer; //*  block one or more threads until another thread both modifies a shared variable (the condition)
+                               //* and notifies the condition_variable.
 
 string root_dir = ROOT_DIR;
 string map_file_path, lid_topic, imu_topic;
@@ -227,11 +228,12 @@ void points_cache_collect()
 
 BoxPointType LocalMap_Points;
 bool Localmap_Initialized = false;
+
 void lasermap_fov_segment()
 {
-    cub_needrm.clear();
-    kdtree_delete_counter = 0;
-    kdtree_delete_time = 0.0;    
+    cub_needrm.clear(); //* clear a box from the ikd tree 
+    kdtree_delete_counter = 0; //* keep track of the number of deletion 
+    kdtree_delete_time = 0.0;  //* keep track of the time of deletion 
     pointBodyToWorld(XAxisPoint_body, XAxisPoint_world);
     V3D pos_LiD = pos_lid;
     if (!Localmap_Initialized){
@@ -361,9 +363,10 @@ void imu_cbk(const sensor_msgs::Imu::ConstPtr &msg_in)
     mtx_buffer.unlock();
     sig_buffer.notify_all();
 }
-
+// TODO: 
 double lidar_mean_scantime = 0.0;
 int    scan_num = 0;
+
 bool sync_packages(MeasureGroup &meas)
 {
     if (lidar_buffer.empty() || imu_buffer.empty()) {
@@ -858,7 +861,7 @@ int main(int argc, char** argv)
     while (status)
     {
         if (flg_exit) break;
-        ros::spinOnce();
+        ros::spinOnce(); //! Call what's availble from the callbacks at a rate of 5000 Hz (faster than any IMU 200Hz and LIDAR ~ 20Hz)
         if(sync_packages(Measures)) 
         {
             if (flg_first_scan)

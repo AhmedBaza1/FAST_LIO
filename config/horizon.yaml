@@ -8,7 +8,7 @@ common:
 preprocess:
     lidar_type: 1                # 1 for Livox serials LiDAR, 2 for Velodyne LiDAR, 3 for ouster LiDAR, 
     scan_line:  6
-    blind: 4
+    blind: 4                     # the blind parameter is the square of the minimum distancs of the sensor
 
 mapping:
     acc_cov: 0.1
